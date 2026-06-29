@@ -1,0 +1,109 @@
+[package]
+name = "falafel"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.bench]
+debug = true
+
+
+[profile.release]
+strip = true
+lto = true
+panic = "abort"
+codegen-units = 1
+
+[dependencies]
+# arkworks stuff
+ark-crypto-primitives = { version = "=0.5.0", features = ["signature"] }
+ark-curve25519 = "=0.5.0"
+ark-ec = "=0.5.0"
+ark-ff = "=0.5.0"
+ark-poly = "0.5.0"
+ark-poly-commit = "=0.5.0"
+ark-serialize = { version = "=0.5.0", features = [
+    "derive",
+] } # we use this only for custom serde implementations and not directly
+ark-std = "=0.5.0"
+spongefish = { git = "https://github.com/arkworks-rs/spongefish", rev = "bf02b09d4c2de0cb5a4ca233c95b1ef812694a50", features = [
+    "arkworks-algebra",
+] } # automatic transcript parsing and fiat-shamir application (this package is still under development, but already has the stuff we need)
+
+# super efficient serialization, that can also use serde
+bitcode = { version = "=0.6.9", features = ["serde"] }
+# hashing
+blake2 = "=0.10.6"
+# fixed points
+fixed = { version = "=1.30.0", features = [
+    "num-traits",
+    "serde",
+] }
+# matrices and higher-dimensional arrays
+ndarray = { version = "=0.17.2", features = [
+    "serde",
+    "rayon",
+] }
+# numeric traits
+num-traits = "=0.2.19"
+# generic randomness traits
+rand = { version = "=0.8.5", features = ["getrandom"] }
+# CSPRNG (secure randomness)
+rand_chacha = { version = "=0.3.1", features = ["simd"] }
+# sample randomness from specific distributions
+rand_distr = "=0.4.3"
+# parallel stuff
+rayon = { version = "=1.11.0", optional = true }
+# main serialization (we can use ark-serialize inside this to get custom impls)
+serde = { version = "=1.0.228", features = ["derive"] }
+toml = { version = "1.0.2" }
+mnist = { version = "0.6.0" }
+# logging
+log = { version = "0.4.27" }
+
+[dev-dependencies]
+ndarray = { version = "=0.17.2", features = [
+    "serde",
+    "rayon",
+    "approx",
+] }
+approx = "=0.5"
+rstest = "=0.26.1"
+
+
+[features]
+default = ["parallel"]
+asm = ["ark-ff/asm"]
+parallel = [
+    "rayon",
+    "ark-crypto-primitives/parallel",
+    "ark-ec/parallel",
+    "ark-ff/parallel",
+    "ark-poly/parallel",
+    "ark-poly-commit/parallel",
+    "ark-serialize/parallel",
+    "ark-std/parallel",
+]
+print-trace = [
+    "ark-crypto-primitives/print-trace",
+    "ark-poly-commit/print-trace",
+    "ark-std/print-trace",
+]
+
+# --- BENCHMARKS ---
+[[bench]]
+name = "bench_phases"
+path = "benches/bench_phases.rs"
+harness = false
+
+[[bench]]
+name = "bench_lenet"
+path = "benches/bench_lenet.rs"
+harness = false
+
+[[bench]]
+name = "bench_scaling"
+path = "benches/bench_scaling.rs"
+harness = false

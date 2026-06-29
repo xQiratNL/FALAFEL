@@ -1,0 +1,22 @@
+# This file is used to configure the single run benchmark on random data.
+
+# Number of data samples per client.
+n_samples_vec = [100]
+# Number of input features.
+n_input = 8
+# 2 hidden layers with 10 neurons each.
+n_hidden = [10, 10]
+# Activation functions for each hidden layer + output layer.
+activation_functions = ["ReLU", "ReLU", "ReLU"]
+# Number of output neurons.
+n_output = 1
+# Number of global and local iterations for the training process.
+n_global_iter = 1
+n_local_iter = 1
+# Mini-batch size and learning rate for the training process.
+batch_size = 10
+learning_rate = 1
+# bit sizes
+total_bits = 20
+decimal_bits = 5
+initial_integer_bits = 5

@@ -1,0 +1,11 @@
+# Jetbrains IDE
+/.idea
+
+# Results
+/results
+
+# Rust
+/target
+
+# Data
+src/experiments/data_mnist

@@ -1,0 +1,29 @@
+# This is a configuration file for running FALAFEL (i32) on the MNIST dataset.
+
+# Training parameters
+n_global_iter = 1
+n_local_iter = 2
+batch_size = 10
+learning_rate = 1
+
+# bit sizes
+total_bits = 20
+decimal_bits = 5
+
+# Data distribution - number of samples per client
+n_samples_vec = [10, 10, 10]
+
+# Dataset splits
+n_train = 100
+n_test = 10
+n_valid = 10
+
+# Neural network architecture
+# Hidden layers configuration (number of neurons per layer)
+n_hidden = [8, 8]
+
+# Activation functions for each hidden layer + output layer
+activation_functions = ["ReLU", "ReLU", "ReLU"]
+
+# MNIST dataset path
+mnist_path = "./src/experiments/data_mnist"
