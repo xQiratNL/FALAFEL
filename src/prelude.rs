@@ -18,6 +18,8 @@ pub use ark_ff::Field;
 
 // consts
 pub const PROTOCOL_NAME: &[u8] = b"FALAFEL";
+pub const PEDERSEN_DIVISOR_LARGE: usize = 8;
+pub const PEDERSEN_DIVISOR_SMALL: usize = 2;
 
 // a convenient trait for values we can use to compute with (e.g., fixed point, floating point, ...)
 pub trait Value:

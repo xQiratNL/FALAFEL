@@ -56,10 +56,26 @@ pub fn compute_max_pedersen_gens(
     );
     let t_dims = HyraxCmMatricesDimensions::new(n_matrices, t_rows, t_cols, false, None);
 
-    let t_and_r_scaling_generators =
-        2 * (t_dims.num_row_coms * t_dims.row_com_dimension * total_bits).next_power_of_two();
-    let g_scaling_generators =
-        2 * (g_dims.num_row_coms * g_dims.row_com_dimension * total_bits).next_power_of_two();
+    let pedersen_divisor_t_and_r = if PEDERSEN_DIVISOR_LARGE <= t_dims.num_row_coms {
+        PEDERSEN_DIVISOR_LARGE
+    } else {
+        PEDERSEN_DIVISOR_SMALL
+    };
+    let t_and_r_scaling_generators = 2
+        * ((t_dims.num_row_coms as f64 / pedersen_divisor_t_and_r as f64).ceil() as usize
+            * t_dims.row_com_dimension
+            * total_bits)
+            .next_power_of_two();
+    let pedersen_divisor_g = if PEDERSEN_DIVISOR_LARGE <= g_dims.num_row_coms {
+        PEDERSEN_DIVISOR_LARGE
+    } else {
+        PEDERSEN_DIVISOR_SMALL
+    };
+    let g_scaling_generators = 2
+        * ((g_dims.num_row_coms as f64 / pedersen_divisor_g as f64).ceil() as usize
+            * g_dims.row_com_dimension
+            * total_bits)
+            .next_power_of_two();
     max(t_and_r_scaling_generators, g_scaling_generators)
 }
 

@@ -41,30 +41,37 @@ fn compute_total_bits(
 
 fn main() {
     let batch_sizes = [4, 8, 16];
-    // let batch_sizes = [4];
-    // let n_input = 8 * 8;
-    // let n_hidden = vec![8,8,8];
-    //LeNet:
-    // let n_input = 32 * 32;
-    // let n_hidden = vec![72,72,10];
+
     // Comparable to LeNet:
     let n_input = 120;
     let n_hidden = vec![120, 120, 120];
     let n_output = 1;
+
+    // Comparable to AlexNet:
+    // let n_input = 120;
+    // let n_hidden = vec![3180, 3180, 3180, 3180, 3180, 3180, 3180];
+    // let n_output = 1;
+
+    // Comparable to VGG-11:
+    // let n_input = 120;
+    // let n_hidden = vec![120,120,120];
+    // let n_output = 1;
+
     let decimal_bits = 3;
     let initial_integer_bits = 2;
 
     println!("batch_size,phase,prover_time_s,verifier_time_s,proof_size_bytes");
 
     for &bs in &batch_sizes {
-        let total_bits = compute_total_bits(
-            n_input,
-            &n_hidden,
-            n_output,
-            decimal_bits,
-            initial_integer_bits,
-            bs,
-        );
+        // let total_bits = compute_total_bits(
+        //     n_input,
+        //     &n_hidden,
+        //     n_output,
+        //     decimal_bits,
+        //     initial_integer_bits,
+        //     bs,
+        // );
+        let total_bits = 64;
         let n_samples = bs;
         eprintln!(
             "=== Starting benchmark for batch_size={} with total_bits={} ===",

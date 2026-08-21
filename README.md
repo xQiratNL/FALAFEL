@@ -24,5 +24,5 @@ There are 3 experiments to run (besides the tests that are run the regular Rust 
    `RUSTFLAGS="-C target-feature=+bmi2,+adx" cargo bench --features asm --bench bench_phases > results_batch_experiment.csv`
 2. Scaling:
    `RUSTFLAGS="-C target-feature=+bmi2,+adx" cargo bench --features asm --bench bench_scaling > results_scaling_experiment.csv`
-3. Real-world models
+3. Real-world models (if you uncomment/comment different parameters in `benches/bench_scaling.rs` you can switch between lenet/alexnet/vgg-11)
    `RUSTFLAGS="-C target-feature=+bmi2,+adx" cargo bench --features asm --bench bench_lenet > results_lenet_experiment.csv`
