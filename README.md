@@ -2,14 +2,13 @@
 
 This repository contains
 
-- the proofs for the paper
 - the code for the paper
 
 We make our code available open-source under the MIT license.
 
 ## Contents
 
-1[Running locally](#running-locally)
+1. [Running locally](#running-locally)
 
 ## Running Locally
 
